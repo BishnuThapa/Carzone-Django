@@ -6,7 +6,11 @@ from .models import Car
 
 
 def cars(request):
-    return render(request, 'cars/cars.html')
+    cars = Car.objects.order_by('-created_date')
+    context = {
+        'cars': cars,
+    }
+    return render(request, 'cars/cars.html', context)
 
 
 def Nepal(request):

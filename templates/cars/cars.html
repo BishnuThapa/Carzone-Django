@@ -1,5 +1,6 @@
 {% extends 'base.html' %}
 {% load static %}
+{% load humanize %}
 {% block content %}
     <!-- Sub banner start -->
     <div class="sub-banner overview-bgi">
@@ -22,62 +23,74 @@
             <div class="row">
                 <div class="col-lg-8 col-md-12">
                     <div class="row">
-                        <div class="col-lg-6 col-md-6">
-                            <div class="car-box-3">
-                                <div class="car-thumbnail">
-                                    <a href="car-details.html" class="car-img">
-                                        <div class="tag">For Rent</div>
-                                        <div class="price-box">
-                                            <span>$780.00</span>
-                                        </div>
-                                        <img class="d-block w-100" src="{% static 'img/car/car-1.jpg' %}" alt="car">
-                                    </a>
-                                    <div class="carbox-overlap-wrapper">
-                                        <div class="overlap-box">
-                                            <div class="overlap-btns-area">
-                                                <div class="car-magnify-gallery">
-                                                    <a href="img/car/car-1.jpg" class="overlap-btn">
-                                                        <i class="fa fa-expand"></i>
-                                                        <img class="hidden" src="img/car/car-1.jpg">
-                                                    </a>
-                                                    <a href="img/car/car-2.jpg" class="hidden">
-                                                        <img class="hidden" src="img/car/car-2.jpg">
-                                                    </a>
-                                                    <a href="img/car/car-3.jpg" class="hidden">
-                                                        <img class="hidden" src="img/car/car-3.jpg">
-                                                    </a>
-                                                    <a href="img/car/car-4.jpg" class="hidden">
-                                                        <img class="hidden" src="img/car/car-4.jpg">
-                                                    </a>
-                                                    <a href="img/car/car-5.jpg" class="hidden">
-                                                        <img class="hidden" src="img/car/car-5.jpg">
-                                                    </a>
+                        {% for car in cars %}
+                            <div class="col-lg-6 col-md-6">
+                                <div class="car-box-3">
+                                    <div class="car-thumbnail">
+                                        <a href="{% url 'car_detail' car.slug %}" class="car-img">
+                                            <div class="tag">For Rent</div>
+                                            <div class="price-box">
+                                                <span>Rs. {{ car.price | intcomma }} / Day</span>
+                                            </div>
+                                            <img class="d-block w-100"
+                                                 src="{{ car.car_photo.url }}"
+                                                 style="height:250px"
+                                                 alt="car">
+                                        </a>
+                                        <div class="carbox-overlap-wrapper">
+                                            <div class="overlap-box">
+                                                <div class="overlap-btns-area">
+                                                    <div class="car-magnify-gallery">
+                                                        <a href="{{ car.car_photo.url }}" class="overlap-btn">
+                                                            <i class="fa fa-expand"></i>
+                                                            <img class="hidden" src="{{ car.car_photo.url }}">
+                                                        </a>
+                                                        {% if car.car_photo_1 %}
+                                                            <a href="{{ car.car_photo_1.url }}" class="hidden">
+                                                                <img class="hidden" src="{{ car.car_photo_1.url }}">
+                                                            </a>
+                                                        {% endif %}
+                                                        {% if car.car_photo_2 %}
+                                                            <a href="{{ car.car_photo_2.url }}" class="hidden">
+                                                                <img class="hidden" src="{{ car.car_photo_2.url }}">
+                                                            </a>
+                                                        {% endif %}
+                                                        {% if car.car_photo_3 %}
+                                                            <a href="{{ car.car_photo_3.url }}" class="hidden">
+                                                                <img class="hidden" src="{{ car.car_photo_3.url }}">
+                                                            </a>
+                                                        {% endif %}
+                                                        {% if car.car_photo_4 %}
+                                                            <a href="{{ car.car_photo_4.url }}" class="hidden">
+                                                                <img class="hidden" src="{{ car.car_photo_4.url }}">
+                                                            </a>
+                                                        {% endif %}
+                                                    </div>
                                                 </div>
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="detail">
-                                    <h1 class="title">
-                                        <a href="car-details.html">Lamborghini Hurac�n</a>
-                                    </h1>
-                                    <div class="location">
-                                        <a href="car-details.html">
-                                            <i class="flaticon-pin"></i>123 Kathal St. Tampa City,
-                                        </a>
+                                    <div class="detail">
+                                        <h1 class="title">
+                                            <a href="{% url 'car_detail' car.slug %}">{{ car.car_title }}</a>
+                                        </h1>
+                                        <div class="location">
+                                            <a href="{% url 'car_detail' car.slug %}">
+                                                <i class="flaticon-pin"></i>{{ car.state }},{{ car.city }}
+                                            </a>
+                                        </div>
+                                        <ul class="facilities-list clearfix">
+                                            <li>{{ car.fuel_type }}</li>
+                                            <li>{{ car.miles | intcomma }}</li>
+                                            <li>{{ car.transmission }}</li>
+                                            <li>{{ car.body_style }}</li>
+                                            <li>{{ car.color }}</li>
+                                            <li>{{ car.year  }}</li>
+                                        </ul>
                                     </div>
-                                    <ul class="facilities-list clearfix">
-                                        <li>Petrol</li>
-                                        <li>4,000 km</li>
-                                        <li>Manual</li>
-                                        <li>Sport</li>
-                                        <li>white</li>
-                                        <li>2020</li>
-                                    </ul>
                                 </div>
                             </div>
-                        </div>
-                        
+                        {% endfor %}
                     </div>
                     <!-- Page navigation start -->
                     <div class="pagination-box p-box-2 text-center">
@@ -106,9 +119,7 @@
                     <div class="sidebar-right">
                         <!-- Advanced search start -->
                         <div class="widget advanced-search2">
-                            <h3 class="sidebar-title">
-                                Search your desire car
-                            </h3>
+                            <h3 class="sidebar-title">Search your desire car</h3>
                             <form method="GET">
                                 <div class="form-group">
                                     <select class="selectpicker search-fields" name="brand">
@@ -221,9 +232,7 @@
                                     </select>
                                 </div>
                                 <div class="range-slider clearfix">
-                                    <label>
-                                        Price
-                                    </label>
+                                    <label>Price</label>
                                     <div data-min="0"
                                          data-max="150000"
                                          data-min-name="min_price"
@@ -232,21 +241,16 @@
                                          class="range-slider-ui ui-slider"
                                          aria-disabled="false">
                                     </div>
-                                    <div class="clearfix">
-                                    </div>
+                                    <div class="clearfix"></div>
                                 </div>
                                 <div class="form-group mb-0">
-                                    <button class="search-button btn">
-                                        Search
-                                    </button>
+                                    <button class="search-button btn">Search</button>
                                 </div>
                             </form>
                         </div>
                         <!-- Question start -->
                         <div class="widget question widget-3">
-                            <h5 class="sidebar-title">
-                                Follow us
-                            </h5>
+                            <h5 class="sidebar-title">Follow us</h5>
                             <div class="social-list clearfix">
                                 <ul>
                                     <li>
