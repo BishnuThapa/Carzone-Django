@@ -47,6 +47,7 @@ class Car(models.Model):
         ('6', '6'),
     )
     car_title = models.CharField(max_length=255)
+    slug = models.SlugField(max_length=255, unique=True, blank=True, null=True)
     state = models.CharField(choices=state_choice, max_length=100)
     city = models.CharField(max_length=100, default="")
     color = models.CharField(

@@ -250,10 +250,10 @@
                                 </div>
                                 <div class="detail">
                                     <h1 class="title">
-                                        <a href="car-details.html">{{ car.car_title }}</a>
+                                        <a href="{% url 'car_detail' car.slug %}">{{ car.car_title }}</a>
                                     </h1>
                                     <div class="location">
-                                        <a href="car-details.html">
+                                        <a href="{% url 'car_detail' car.slug %}">
                                             <i class="flaticon-pin"></i>{{ car.city}}
                                         </a>
                                     </div>
@@ -307,7 +307,7 @@
                     <div class="col-lg-4 col-md-6">
                         <div class="car-box">
                             <div class="car-thumbnail">
-                                <a href="car-details.html" class="car-img">
+                                <a href="{% url 'car_detail' all_car.slug %}" class="car-img">
                                     <div class="tag">
                                         For Rent
                                     </div>
@@ -359,10 +359,10 @@
                             </div>
                             <div class="detail">
                                 <h1 class="title">
-                                    <a href="car-details.html">{{ all_car.car_title }}</a>
+                                    <a href="{% url 'car_detail' all_car.slug %}">{{ all_car.car_title }}</a>
                                 </h1>
                                 <div class="location">
-                                    <a href="car-details.html">
+                                    <a href="{% url 'car_detail' all_car.slug %}">
                                         <i class="flaticon-pin"></i>{{ all_car.city }}
                                     </a>
                                 </div>

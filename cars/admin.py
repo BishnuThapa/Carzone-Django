@@ -5,6 +5,10 @@ from django.utils.html import format_html
 
 
 class CarAdmin(admin.ModelAdmin):
+    prepopulated_fields = {
+        'slug': ['car_title']
+    }
+
     def thumbnail(self, object):
         return format_html('<img src="{}" width="40" style="border-radius:50%;" />'.format(object.car_photo.url))
 
