@@ -68,12 +68,12 @@
         <!-- Full Page Search -->
         <div id="full-page-search">
             <button type="button" class="close">
-                �
+                ❌
             </button>
-            <form action="https://storage.googleapis.com/theme-vessel/carhouse/index.html#"
-                  class="search-header">
+            <form action="{% url 'search' %}" class="search-header">
                 <input type="search"
                        value=""
+                       name="keyword" 
                        placeholder="type keyword(s) here. Eg: audi, benz etc"/>
                 <button type="submit" class="btn btn-sm button-theme">
                     Search
