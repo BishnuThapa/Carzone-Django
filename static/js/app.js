@@ -479,3 +479,10 @@ $(function () {
         }
     }).trigger("resize");
 })(jQuery);
+
+
+// message dissaper after 5 second
+setTimeout(function () {
+    $('#message').fadeOut('slow');
+
+},12000)
