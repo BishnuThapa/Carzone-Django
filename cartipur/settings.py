@@ -13,6 +13,7 @@ https://docs.djangoproject.com/en/4.1/ref/settings/
 from django.contrib.messages import constants as messages
 import os
 from pathlib import Path
+import dj_database_url
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -25,7 +26,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-am2!f-)vt65$($5o=2))6ogta*xzd^(0%azo-3*7arnwibi!md'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
 ALLOWED_HOSTS = []
 LOGIN_REDIRECT_URL = 'dashboard'
@@ -65,6 +66,7 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'whitenoise.middleware.WhiteNoiseMiddleware',
 ]
 
 ROOT_URLCONF = 'cartipur.urls'
@@ -91,17 +93,18 @@ WSGI_APPLICATION = 'cartipur.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
-DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'Cartipur',
-        'USER': 'postgres',
-        'PASSWORD': 'Nepal@123',
-        'HOST': 'localhost',
-    }
-}
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'Cartipur',
+#         'USER': 'postgres',
+#         'PASSWORD': 'Nepal@123',
+#         'HOST': 'localhost',
+#     }
+# }
 
-
+DATABASES = {'default': dj_database_url.config(
+    default='postgres://postgres:Nepal@123@localhost/Cartipur')}
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
 
@@ -163,3 +166,9 @@ EMAIL_PORT = 587
 EMAIL_HOST_USER = 'thapabishnu20@gmail.com'
 EMAIL_HOST_PASSWORD = 'vnxdeasyhlbygjln'
 EMAIL_USE_TLS = True
+
+
+# Whitenoise settings
+
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
