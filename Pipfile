@@ -10,6 +10,8 @@ psycopg2 = "*"
 django-ckeditor = "*"
 django-multiselectfield = "*"
 django-allauth = "*"
+gunicorn = "*"
+psycopg2-binary = "*"
 
 [dev-packages]
 
